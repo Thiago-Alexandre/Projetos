@@ -2,7 +2,6 @@ package objetos;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
 public class Raquete extends Retangulo{
     
@@ -11,35 +10,30 @@ public class Raquete extends Retangulo{
     }
     
     public void Desenhar(Graphics g){
-        g.setColor(Color.BLUE);
-        g.fillRect(posX, posY, LARGURA_R, ALTURA_R);
+        this.Desenhar(g, Color.blue);
     }
     
-    public void MoverEsquerda(Rectangle r){
-        retangulo = new Rectangle(posX, posY, LARGURA_R, ALTURA_R);
-        if (!retangulo.intersects(r)) {
-            posX -= 20;
+    public void MoverEsquerda(Retangulo r){
+        if (!this.intersects(r)) {
+            this.setPosX(this.getPosX() - 20);
         }
     }
     
-    public void MoverDireita(Rectangle r){
-        retangulo = new Rectangle(posX, posY, LARGURA_R, ALTURA_R);
-        if (!retangulo.intersects(r)) {
-            posX += 20;
+    public void MoverDireita(Retangulo r){
+        if (!this.intersects(r)) {
+            this.setPosX(this.getPosX() + 20);
         }
     }
     
-    public void MoverCima(Rectangle r){
-        retangulo = new Rectangle(posX, posY, LARGURA_R, ALTURA_R);
-        if (!retangulo.intersects(r)) {
-            posY -= 20;
+    public void MoverCima(Retangulo r){
+        if (!this.intersects(r)) {
+            this.setPosY(this.getPosY() - 20);
         }
     }
     
-    public void MoverBaixo(Rectangle r){
-        retangulo = new Rectangle(posX, posY, LARGURA_R, ALTURA_R);
-        if (!retangulo.intersects(r)) {
-            posY += 20;
+    public void MoverBaixo(Retangulo r){
+        if (!this.intersects(r)) {
+            this.setPosY(this.getPosY() + 20);
         }
     }
 }

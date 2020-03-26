@@ -10,7 +10,6 @@ public class Quina extends Retangulo{
     }
     
     public void Desenhar(Graphics g){
-        g.setColor(Color.gray);
-        g.fillRect(super.posX, super.posY, super.LARGURA_R, super.ALTURA_R);
+        this.Desenhar(g, Color.gray);
     }
 }

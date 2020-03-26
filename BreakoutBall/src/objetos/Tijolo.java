@@ -6,9 +6,9 @@ import java.util.Random;
 
 public class Tijolo extends Retangulo{
     
-    public int dureza;
+    private int dureza;
     private final Random r = new Random();
-    public boolean quebrado;
+    private boolean quebrado;
     
     public Tijolo(int x, int y, int l, int a){
         super(x, y, l, a);
@@ -30,16 +30,31 @@ public class Tijolo extends Retangulo{
         if (!quebrado) {
             switch (dureza) {
                 case 1:
-                    g.setColor(Color.red);
+                    this.Desenhar(g, Color.red);
                     break;
                 case 2:
-                    g.setColor(Color.yellow);
+                    this.Desenhar(g, Color.yellow);
                     break;
                 default:
-                    g.setColor(Color.green);
+                    this.Desenhar(g, Color.green);
                     break;
-            }
-            g.fillRect(super.posX, super.posY, super.LARGURA_R, super.ALTURA_R);    
+            }   
         }
+    }
+
+    public int getDureza() {
+        return dureza;
+    }
+
+    public void setDureza(int dureza) {
+        this.dureza = dureza;
+    }
+
+    public boolean isQuebrado() {
+        return quebrado;
+    }
+
+    public void setQuebrado(boolean quebrado) {
+        this.quebrado = quebrado;
     }
 }

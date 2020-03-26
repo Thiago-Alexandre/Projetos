@@ -128,23 +128,23 @@ public class GamePlay extends JPanel implements KeyListener{
         }
         if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT) {
             if (enterOK) {
-                raquete[2].MoverEsquerda(quina[0].retangulo);
-                raquete[3].MoverEsquerda(quina[6].retangulo);
+                raquete[2].MoverEsquerda(quina[0]);
+                raquete[3].MoverEsquerda(quina[6]);
             }
         }else if (e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT) {
             if (enterOK) {
-                raquete[2].MoverDireita(quina[1].retangulo);
-                raquete[3].MoverDireita(quina[7].retangulo);    
+                raquete[2].MoverDireita(quina[1]);
+                raquete[3].MoverDireita(quina[7]);    
             }
         }else if (e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP) {
             if (enterOK) {
-                raquete[0].MoverCima(quina[2].retangulo);
-                raquete[1].MoverCima(quina[4].retangulo);    
+                raquete[0].MoverCima(quina[2]);
+                raquete[1].MoverCima(quina[4]);    
             }
         }else if (e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN) {
             if (enterOK) {
-                raquete[0].MoverBaixo(quina[3].retangulo);
-                raquete[1].MoverBaixo(quina[5].retangulo);
+                raquete[0].MoverBaixo(quina[3]);
+                raquete[1].MoverBaixo(quina[5]);
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -212,11 +212,11 @@ public class GamePlay extends JPanel implements KeyListener{
                         }
                         if (!colidiu) {
                             for (int i = 0; i < tijolo.length; i++) {
-                                if (!tijolo[i].quebrado) {
+                                if (!tijolo[i].isQuebrado()) {
                                     if (bola.TestarColisao(tijolo[i])) {
-                                        tijolo[i].dureza--;
-                                        if (tijolo[i].dureza < 1) {
-                                            tijolo[i].quebrado = true;
+                                        tijolo[i].setDureza(tijolo[i].getDureza() - 1);
+                                        if (tijolo[i].getDureza() < 1) {
+                                            tijolo[i].setQuebrado(true);
                                         }
                                         pontos += 5;
                                         break;
@@ -279,7 +279,7 @@ public class GamePlay extends JPanel implements KeyListener{
     public int CalcularTijolosQuebrados(){
         int quebrados = 0;
         for (int i = 0; i < tijolo.length; i++) {
-            if (tijolo[i].quebrado) {
+            if (tijolo[i].isQuebrado()) {
                 quebrados += 1;
             }
         }
@@ -290,20 +290,16 @@ public class GamePlay extends JPanel implements KeyListener{
         try {
             raf = new RandomAccessFile(arquivo, "rw");
             for (int i = 0; i < tijolo.length; i++){
-                raf.writeByte(tijolo[i].dureza);
-                System.out.print("T" + i + " " + tijolo[i].dureza);
+                raf.writeByte(tijolo[i].getDureza());
             }
-            System.out.println("");
             for (int i = 0; i < raquete.length; i++) {
-                raf.writeInt(raquete[i].posX);
-                raf.writeInt(raquete[i].posY);
-                System.out.println("R" + i + " X" + raquete[i].posX + "/Y" + raquete[i].posY);
+                raf.writeInt(raquete[i].getPosX());
+                raf.writeInt(raquete[i].getPosY());
             }
-            raf.writeInt(bola.posX);
-            raf.writeInt(bola.posY);
+            raf.writeInt(bola.getPosX());
+            raf.writeInt(bola.getPosY());
             raf.writeByte(bola.getSpeedX());
             raf.writeByte(bola.getSpeedY());
-            System.out.println("Bx" + bola.posX + "/By" + bola.posY + " Sx" + bola.getSpeedX() + " Sy" + bola.getSpeedY());
             raf.writeInt(pontos);
             System.out.println("Pontos:" + pontos);
             raf.close();
