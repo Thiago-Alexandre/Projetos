@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head />
+	<h:body>
+            <header id="cabecalho">
+                <h2>Agenda</h2>
+            </header>
+            <main id="conteudo">
+                <p:outputPanel><h1>Login</h1></p:outputPanel>
+                <h:form rendered="#{erro != null}">
+                    <p:outputLabel value="Usuário ou Senha inválidos!"/>
+		</h:form>
+                <h:form id="salva">
+                    <p:fieldset legend="Login:">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Login:" for="login"/>
+                            <p:inputText id="login" maxlength="30" required="true" value="#{beanUsuario.usuario.login}"/>
+                            <p:outputLabel value="Senha:" for="senha"/>
+                            <p:password id="senha" maxlength="20" required="true" value="#{beanUsuario.usuario.senha}"/>
+                            <p:commandButton value="Entrar" action="#{beanUsuario.efetuarLogin}" process=":salva" update=":salva"/>
+                        </h:panelGrid>
+                    </p:fieldset>
+                </h:form>
+                <h:form id="novo">
+                    <p:fieldset legend="Não possui uma conta?">
+                        <h:panelGrid columns="1">
+                            <p:commandButton value="Cadastrar" action="#{beanUsuario.cadastrar}" process=":novo" update=":novo"/>
+                        </h:panelGrid>
+                    </p:fieldset>
+                </h:form>
+            </main>
+            <footer id="rodape">
+                <h3>Projeto Agenda - Thiago Alexandre Buerger</h3>
+            </footer>
+	</h:body> 
+</html>

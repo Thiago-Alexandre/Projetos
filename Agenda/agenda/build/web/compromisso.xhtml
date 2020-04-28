@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head />
+	<h:body>
+            <header id="cabecalho">
+                <a href="index.xhtml"><h2>Agenda</h2></a>
+            </header>
+            <main id="conteudo">
+                <p:outputPanel><h1>Novo/Alterar Compromisso</h1></p:outputPanel>
+                <h:form id="salva">
+                    <p:fieldset legend="Compromisso:">
+                        <h:inputHidden value="#{beanCompromisso.compromisso.id}"/>
+                        <h:panelGrid  columns="2">
+                            <p:outputLabel value="ID:" for="id"/>
+                            <p:inputText id="id" maxlength="10" readonly="true" value="#{beanCompromisso.compromisso.id}"/>
+                            <p:outputLabel value="Data e Hora:" for="data"/>
+                            <p:calendar id="data" value="#{beanCompromisso.compromisso.data}" pattern="yyyy-MM-dd HH:mm:ss" required="true" timeZone="GMT-3" mask="true">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" timeZone="GMT-3"/>
+                            </p:calendar>    
+                            <p:outputLabel value="Local:" for="local"/>
+                            <p:inputText id="local" maxlength="50" required="true" value="#{beanCompromisso.compromisso.local}"/>
+                            <p:outputLabel value="Descrição:" for="descricao"/>
+                            <p:inputText id="descricao" required="true" value="#{beanCompromisso.compromisso.descricao}"/>
+                            <p:commandButton value="Salvar" action="#{beanCompromisso.salvar}" process=":salva" update=":salva :lista"/>
+                            <p:commandButton value="Excluir" action="#{beanCompromisso.excluir}" process=":salva" update=":salva :lista"/>
+                        </h:panelGrid>
+                    </p:fieldset>
+                </h:form>
+                <h:form id="participante">
+                    <p:fieldset legend="Adicionar Participante:">
+                        <h:panelGrid  columns="2">
+                            <p:outputLabel for="novoContato" value="Participante:" />
+                            <p:selectOneMenu value="#{beanCompromisso.novoContato}" id="novoContato" filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{beanCompromisso.novosParticipantes()}" var="novo"
+                                               itemLabel="#{novo.nome}" itemValue="#{novo.id}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Adicionar" action="#{beanCompromisso.adicionarParticipante()}" process=":participante" update=":participante :lista"/>
+                            <p:commandButton value="Novo Contato" action="#{beanCompromisso.contatos()}"/>
+                        </h:panelGrid>
+                        <h:form rendered="#{contatoErro != null}">
+                            <p:outputLabel value="É necessário salvar o Novo Compromisso para Adicionar Participantes!"/>
+                        </h:form>
+                    </p:fieldset>
+                </h:form>
+                <h:form id="lista">
+                    <p:fieldset legend="Participantes:">
+                        <p:dataTable id="contatos" var="x" value="#{beanCompromisso.listarParticipantes()}">
+                            <p:column headerText="Id">
+                                <h:outputText value="#{x.id}" />
+                            </p:column>
+                            <p:column headerText="Nome">
+                                <h:outputText value="#{x.nome}" />
+                            </p:column>
+                            <p:column headerText="E-mail">
+                                <h:outputText value="#{x.email}" />
+                            </p:column>
+                            <p:column headerText="Telefone">
+                                <h:outputText value="#{x.fone}" />
+                            </p:column>
+                            <p:column headerText="Remover">
+                                <p:commandButton value="X" action="#{beanCompromisso.removerParticipante(x)}" update=":lista :participante"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                </h:form>
+            </main>
+            <footer id="rodape">
+                <h3>Projeto Agenda - Thiago Alexandre Buerger</h3>
+            </footer>
+	</h:body> 
+</html>

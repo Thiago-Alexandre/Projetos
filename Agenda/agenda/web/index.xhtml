@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head />
+	<h:body>
+            <header id="cabecalho">
+                <h2>Agenda</h2>
+            </header>
+            <nav id="menu">
+                <h:form id="formMenu">
+                    <p:commandButton id="dynaButton" value="Menu" type="button" />
+                    <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+                        <p:menuitem value="Contatos" action="#{beanCompromisso.contatos()}" update=":formMenu" />
+                        <p:menuitem value="Novo Compromisso" action="#{beanCompromisso.novoCompromisso()}" update=":formMenu" />
+                        <p:menuitem value="Logout" action="#{beanUsuario.deslogar}" update=":formMenu" />
+                    </p:menu>
+		</h:form>
+            </nav>
+            <main id="conteudo">
+                <h1>Meus Compromissos</h1>
+                <h:form id="lista">
+                    <p:fieldset legend="Compromissos:">
+                        <p:dataTable id="compromissos" var="x" value="#{beanCompromisso.listar()}">
+                            <p:column headerText="Id">
+                                <h:outputText value="#{x.id}" />
+                            </p:column>
+                            <p:column headerText="Data e Hora">
+                                <h:outputText value="#{x.data}" />
+                            </p:column>
+                            <p:column headerText="Local">
+                                <h:outputText value="#{x.local}" />
+                            </p:column>
+                            <p:column headerText="Descrição">
+                                <h:outputText value="#{x.descricao}" />
+                            </p:column>
+                            <p:column headerText="Detalhes">
+                                <p:commandButton value="..." action="#{beanCompromisso.verDetalhes(x)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                </h:form>
+            </main>
+            <footer id="rodape">
+                <h3>Projeto Agenda - Thiago Alexandre Buerger</h3>
+            </footer>
+	</h:body>
+</html>
