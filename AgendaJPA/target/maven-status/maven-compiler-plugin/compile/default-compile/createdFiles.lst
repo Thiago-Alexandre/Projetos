@@ -1,0 +1,11 @@
+controller\BeanUsuario.class
+util\JPAConnectionFactory.class
+controller\BeanContato.class
+model\Contato.class
+util\Autorizador.class
+controller\BeanCompromisso.class
+model\Compromisso.class
+service\ContatoDAO.class
+service\UsuarioDAO.class
+model\Usuario.class
+service\CompromissoDAO.class

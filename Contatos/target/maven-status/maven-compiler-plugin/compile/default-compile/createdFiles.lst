@@ -1,0 +1,5 @@
+util\JPAConnectionFactory.class
+services\ContatoResource.class
+model\Contato.class
+dao\ContatoDAO.class
+services\ApplicationConfig.class
